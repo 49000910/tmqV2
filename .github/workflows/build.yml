@@ -27,7 +27,7 @@ jobs:
     - name: 执行 PyInstaller 打包
       run: |
         # --collect-all pynput 是解决键盘监听在打包后失效的关键识别码
-        pyinstaller --noconsole --onefile --collect-all pynput --clean --name "条码防重工具_v2.331" main.py
+        pyinstaller --noconsole --onefile --collect-all pynput --clean --name "条码防重工具_v2.331" V2.py
 
     - name: 上传生成的 EXE 文件
       uses: actions/upload-artifact@v4
