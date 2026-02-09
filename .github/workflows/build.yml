@@ -2,8 +2,8 @@ name: 打包条码防重工具
 
 on:
   push:
-    branches: [ "main" ]  # 当你推送到 main 分支时自动触发
-  workflow_dispatch:      # 允许你在 GitHub 页面手动点击按钮触发
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,27 +14,23 @@ jobs:
       uses: actions/checkout@v4
 
     - name: 设置 Python 3.10
-      uses: uses/setup-python@v5
+      # 修正点：必须是 actions/setup-python，不能写成 uses/
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
-        cache: 'pip'
 
-    - name: 安装依赖库
+    - name: 安装环境依赖
       run: |
         python -m pip install --upgrade pip
         pip install pynput pyinstaller
 
-    - name: 使用 PyInstaller 打包
+    - name: 执行 PyInstaller 打包
       run: |
-        # --noconsole: 运行时不弹出黑色命令行窗口
-        # --onefile: 所有的依赖打包进一个 .exe 文件
-        # --collect-all pynput: 强制抓取 pynput 所有的子模块（解决键盘监听失效的关键）
-        # --clean: 打包前清理缓存
-        pyinstaller --noconsole --onefile --collect-all pynput --clean --name "条码防重拦截器" V2.py
+        # --collect-all pynput 是解决键盘监听在打包后失效的关键识别码
+        pyinstaller --noconsole --onefile --collect-all pynput --clean --name "条码防重工具_v2.331" main.py
 
-    - name: 上传构建结果
-    # 你可以在 GitHub Actions 的运行记录里下载生成的压缩包
+    - name: 上传生成的 EXE 文件
       uses: actions/upload-artifact@v4
       with:
-        name: Barcode_Tool_EXE
-        path: dist/条码防重拦截器.exe
+        name: Barcode_Tool_v2.331
+        path: dist/条码防重工具_v2.331.exe
