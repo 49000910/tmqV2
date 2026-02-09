@@ -30,7 +30,7 @@ jobs:
         # --onefile: 所有的依赖打包进一个 .exe 文件
         # --collect-all pynput: 强制抓取 pynput 所有的子模块（解决键盘监听失效的关键）
         # --clean: 打包前清理缓存
-        pyinstaller --noconsole --onefile --collect-all pynput --clean --name "条码防重拦截器" main.py
+        pyinstaller --noconsole --onefile --collect-all pynput --clean --name "条码防重拦截器" V2.py
 
     - name: 上传构建结果
     # 你可以在 GitHub Actions 的运行记录里下载生成的压缩包
